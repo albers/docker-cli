@@ -95,6 +95,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("health-start-interval", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("health-start-period", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("health-timeout", completion.NoComplete)
+	_ = cmd.RegisterFlagCompletionFunc("hostname", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("network", completion.NetworkNames(dockerCli))
 	_ = cmd.RegisterFlagCompletionFunc("platform", completion.Platforms)
 	_ = cmd.RegisterFlagCompletionFunc("pull", completion.FromList(PullImageAlways, PullImageMissing, PullImageNever))

@@ -59,6 +59,7 @@ var restartPolicies = []string{
 func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("add-host", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("annotation", completion.NoComplete)
+	_ = cmd.RegisterFlagCompletionFunc("attach", completion.FromList("stderr", "stdin", "stdout"))
 	_ = cmd.RegisterFlagCompletionFunc("cap-add", completeLinuxCapabilityNames)
 	_ = cmd.RegisterFlagCompletionFunc("cap-drop", completeLinuxCapabilityNames)
 	_ = cmd.RegisterFlagCompletionFunc("env", completion.EnvVarNames)

@@ -57,6 +57,7 @@ var restartPolicies = []string{
 
 // addCompletions adds the completions that `run` and `create`have in common.
 func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
+	_ = cmd.RegisterFlagCompletionFunc("add-host", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("cap-add", completeLinuxCapabilityNames)
 	_ = cmd.RegisterFlagCompletionFunc("cap-drop", completeLinuxCapabilityNames)
 	_ = cmd.RegisterFlagCompletionFunc("env", completion.EnvVarNames)

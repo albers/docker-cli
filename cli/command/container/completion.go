@@ -64,6 +64,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("blkio-weight-device", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("cap-add", completeLinuxCapabilityNames)
 	_ = cmd.RegisterFlagCompletionFunc("cap-drop", completeLinuxCapabilityNames)
+	_ = cmd.RegisterFlagCompletionFunc("cgroup-parent", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("env", completion.EnvVarNames)
 	_ = cmd.RegisterFlagCompletionFunc("env-file", completion.FileNames)
 	_ = cmd.RegisterFlagCompletionFunc("network", completion.NetworkNames(dockerCli))

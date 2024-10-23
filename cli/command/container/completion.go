@@ -88,6 +88,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("env", completion.EnvVarNames)
 	_ = cmd.RegisterFlagCompletionFunc("env-file", completion.FileNames)
 	_ = cmd.RegisterFlagCompletionFunc("gpus", completion.NoComplete)
+	_ = cmd.RegisterFlagCompletionFunc("group-add", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("network", completion.NetworkNames(dockerCli))
 	_ = cmd.RegisterFlagCompletionFunc("platform", completion.Platforms)
 	_ = cmd.RegisterFlagCompletionFunc("pull", completion.FromList(PullImageAlways, PullImageMissing, PullImageNever))

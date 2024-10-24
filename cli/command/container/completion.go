@@ -133,6 +133,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("user", completion.NoComplete) // TODO refine
 	_ = cmd.RegisterFlagCompletionFunc("userns", completion.FromList("host"))
 	_ = cmd.RegisterFlagCompletionFunc("uts", completion.NoComplete)
+	_ = cmd.RegisterFlagCompletionFunc("volume-driver", completion.NoComplete) // TODO refine
 	_ = cmd.RegisterFlagCompletionFunc("volumes-from", completion.ContainerNames(dockerCli, true))
 }
 

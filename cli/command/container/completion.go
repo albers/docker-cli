@@ -135,6 +135,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("uts", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("volume-driver", completion.NoComplete) // TODO refine
 	_ = cmd.RegisterFlagCompletionFunc("volumes-from", completion.ContainerNames(dockerCli, true))
+	_ = cmd.RegisterFlagCompletionFunc("workdir", completion.NoComplete)
 }
 
 // completeIpc implements shell completion for the `--ipc` option of `run` and `create`.

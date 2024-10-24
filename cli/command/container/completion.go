@@ -98,12 +98,37 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("hostname", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("ip", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("ip6", completion.NoComplete)
+	_ = cmd.RegisterFlagCompletionFunc("ipc", completeIpc(dockerCli))
 	_ = cmd.RegisterFlagCompletionFunc("network", completion.NetworkNames(dockerCli))
 	_ = cmd.RegisterFlagCompletionFunc("platform", completion.Platforms)
 	_ = cmd.RegisterFlagCompletionFunc("pull", completion.FromList(PullImageAlways, PullImageMissing, PullImageNever))
 	_ = cmd.RegisterFlagCompletionFunc("restart", completeRestartPolicies)
 	_ = cmd.RegisterFlagCompletionFunc("stop-signal", completeSignals)
 	_ = cmd.RegisterFlagCompletionFunc("volumes-from", completion.ContainerNames(dockerCli, true))
+}
+
+// completeIpc implements shell completion for the `--ipc` option of `run` and `create`.
+// The completion is partly composite.
+func completeIpc(cli command.Cli) func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+	return func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+		if len(toComplete) > 0 && strings.HasPrefix("container", toComplete) { //nolint:gocritic
+			return []string{"container:"}, cobra.ShellCompDirectiveNoSpace
+		}
+		if strings.HasPrefix(toComplete, "container:") {
+			names, _ := completion.ContainerNames(cli, true)(cmd, args, toComplete)
+			return prefixWith("container:", names), cobra.ShellCompDirectiveNoFileComp
+		}
+		return []string{"container:", "host", "none", "private", "shareable"}, cobra.ShellCompDirectiveNoFileComp
+	}
+}
+
+// prefixWith prefixes every element in the slice with the given prefix.
+func prefixWith(prefix string, values []string) []string {
+	result := make([]string, len(values))
+	for i, v := range values {
+		result[i] = prefix + v
+	}
+	return result
 }
 
 func completeLinuxCapabilityNames(cmd *cobra.Command, args []string, toComplete string) (names []string, _ cobra.ShellCompDirective) {

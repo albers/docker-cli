@@ -138,6 +138,11 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("workdir", completion.NoComplete)
 }
 
+// completeDetachKeys implements shell completion for the `--detach-keys` option of `run` and `create`.
+func completeDetachKeys(_ *cobra.Command, _ []string, _ string) ([]string, cobra.ShellCompDirective) {
+	return []string{"ctrl-"}, cobra.ShellCompDirectiveNoSpace
+}
+
 // completeIpc implements shell completion for the `--ipc` option of `run` and `create`.
 // The completion is partly composite.
 func completeIpc(cli command.Cli) func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {

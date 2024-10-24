@@ -99,6 +99,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("ip", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("ip6", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("ipc", completeIpc(dockerCli))
+	_ = cmd.RegisterFlagCompletionFunc("isolation", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("network", completion.NetworkNames(dockerCli))
 	_ = cmd.RegisterFlagCompletionFunc("platform", completion.Platforms)
 	_ = cmd.RegisterFlagCompletionFunc("pull", completion.FromList(PullImageAlways, PullImageMissing, PullImageNever))

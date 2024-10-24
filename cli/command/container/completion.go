@@ -102,6 +102,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("isolation", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("kernel-memory", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("label", completion.NoComplete)
+	_ = cmd.RegisterFlagCompletionFunc("link", completeLink(dockerCli))
 	_ = cmd.RegisterFlagCompletionFunc("network", completion.NetworkNames(dockerCli))
 	_ = cmd.RegisterFlagCompletionFunc("platform", completion.Platforms)
 	_ = cmd.RegisterFlagCompletionFunc("pull", completion.FromList(PullImageAlways, PullImageMissing, PullImageNever))
@@ -125,11 +126,37 @@ func completeIpc(cli command.Cli) func(cmd *cobra.Command, args []string, toComp
 	}
 }
 
+// completeLink implements shell completion for the `--link` option  of `run` and `create`.
+func completeLink(cli command.Cli) func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+	return func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+		return postfixWith(":", containerNames(cli, cmd, args, toComplete)), cobra.ShellCompDirectiveNoSpace
+	}
+}
+
+// containerNames contacts the API to get names and optionally IDs of containers.
+// In case of an error, an empty list is returned.
+func containerNames(dockerCLI completion.APIClientProvider, cmd *cobra.Command, args []string, toComplete string) []string {
+	names, _ := completion.ContainerNames(dockerCLI, true)(cmd, args, toComplete)
+	if names == nil {
+		return []string{}
+	}
+	return names
+}
+
 // prefixWith prefixes every element in the slice with the given prefix.
 func prefixWith(prefix string, values []string) []string {
 	result := make([]string, len(values))
 	for i, v := range values {
 		result[i] = prefix + v
+	}
+	return result
+}
+
+// postfixWith appends postfix to every element in the slice.
+func postfixWith(postfix string, values []string) []string {
+	result := make([]string, len(values))
+	for i, v := range values {
+		result[i] = v + postfix
 	}
 	return result
 }

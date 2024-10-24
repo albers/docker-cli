@@ -84,6 +84,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("dns-search", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("domainname", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("entrypoint", completion.NoComplete)
+	_ = cmd.RegisterFlagCompletionFunc("expose", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("env", completion.EnvVarNames)
 	_ = cmd.RegisterFlagCompletionFunc("env-file", completion.FileNames)
 	_ = cmd.RegisterFlagCompletionFunc("network", completion.NetworkNames(dockerCli))

@@ -119,6 +119,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("pid", completePid(dockerCli))
 	_ = cmd.RegisterFlagCompletionFunc("pids-limit", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("platform", completion.Platforms)
+	_ = cmd.RegisterFlagCompletionFunc("publish", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("pull", completion.FromList(PullImageAlways, PullImageMissing, PullImageNever))
 	_ = cmd.RegisterFlagCompletionFunc("restart", completeRestartPolicies)
 	_ = cmd.RegisterFlagCompletionFunc("stop-signal", completeSignals)

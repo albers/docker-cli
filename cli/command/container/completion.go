@@ -131,6 +131,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("sysctl", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("ulimit", completeUlimit)
 	_ = cmd.RegisterFlagCompletionFunc("user", completion.NoComplete) // TODO refine
+	_ = cmd.RegisterFlagCompletionFunc("userns", completion.FromList("host"))
 	_ = cmd.RegisterFlagCompletionFunc("volumes-from", completion.ContainerNames(dockerCli, true))
 }
 

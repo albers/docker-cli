@@ -106,6 +106,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("link-local-ip", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("log-driver", completion.NoComplete) // TODO complete drivers
 	_ = cmd.RegisterFlagCompletionFunc("log-opt", completion.NoComplete)    // TODO complete driver options
+	_ = cmd.RegisterFlagCompletionFunc("mac-address", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("network", completion.NetworkNames(dockerCli))
 	_ = cmd.RegisterFlagCompletionFunc("platform", completion.Platforms)
 	_ = cmd.RegisterFlagCompletionFunc("pull", completion.FromList(PullImageAlways, PullImageMissing, PullImageNever))

@@ -117,6 +117,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("network-alias", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("oom-score-adj", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("pid", completePid(dockerCli))
+	_ = cmd.RegisterFlagCompletionFunc("pids-limit", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("platform", completion.Platforms)
 	_ = cmd.RegisterFlagCompletionFunc("pull", completion.FromList(PullImageAlways, PullImageMissing, PullImageNever))
 	_ = cmd.RegisterFlagCompletionFunc("restart", completeRestartPolicies)

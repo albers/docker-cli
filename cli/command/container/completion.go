@@ -127,6 +127,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("shm-size", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("stop-signal", completeSignals)
 	_ = cmd.RegisterFlagCompletionFunc("stop-timeout", completion.NoComplete)
+	_ = cmd.RegisterFlagCompletionFunc("storage-opt", completeStorageOpt)
 	_ = cmd.RegisterFlagCompletionFunc("volumes-from", completion.ContainerNames(dockerCli, true))
 }
 
@@ -164,6 +165,11 @@ func completePid(cli command.Cli) func(cmd *cobra.Command, args []string, toComp
 		}
 		return []string{"container:", "host"}, cobra.ShellCompDirectiveNoFileComp
 	}
+}
+
+// completeLink implements shell completion for the `--storage-opt` option  of `run` and `create`.
+func completeStorageOpt(_ *cobra.Command, _ []string, _ string) ([]string, cobra.ShellCompDirective) {
+	return []string{"size="}, cobra.ShellCompDirectiveNoSpace
 }
 
 // containerNames contacts the API to get names and optionally IDs of containers.

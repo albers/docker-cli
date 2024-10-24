@@ -124,6 +124,7 @@ func addCompletions(cmd *cobra.Command, dockerCli command.Cli) {
 	_ = cmd.RegisterFlagCompletionFunc("restart", completeRestartPolicies)
 	_ = cmd.RegisterFlagCompletionFunc("runtime", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("security-opt", completion.NoComplete) // TODO refine
+	_ = cmd.RegisterFlagCompletionFunc("shm-size", completion.NoComplete)
 	_ = cmd.RegisterFlagCompletionFunc("stop-signal", completeSignals)
 	_ = cmd.RegisterFlagCompletionFunc("volumes-from", completion.ContainerNames(dockerCli, true))
 }
